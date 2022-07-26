@@ -1,3 +1,8 @@
+"""             Convierte Archivos .SVG a .GCode
+Buscando circulos ( ellipse) y mueve el cabezal al centro del mismo para depositar una pieza convirtiendo a instrucciones de GCode        
+        
+        EN PROCESO        
+"""
 from tkinter import N
 from traceback import print_list
 
