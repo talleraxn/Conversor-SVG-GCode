@@ -1,8 +1,12 @@
 from tkinter import N
 from traceback import print_list
 
+Nombre_Archivo_SVG="Circulos.svg"
+Nombre_Archivo_Gcode=Nombre_Archivo_SVG[:-3]+"gcode"
 
-archivo_SVG = open("Circulos.svg", "r")
+print (Nombre_Archivo_SVG,Nombre_Archivo_Gcode)
+
+archivo_SVG = open(Nombre_Archivo_SVG, "r")
 print(archivo_SVG.readable())
 #print(archivo_SVG.read())
 
@@ -21,17 +25,10 @@ for Linea_Numero in range (0, len(Contenido_SVG)-1):
 
 print (len(Lista_Puntos))
 Linea_Numero=0
-for Linea in Lista_Puntos:
-    print (Lista_Puntos[Linea_Numero])
-    Linea_Numero = Linea_Numero + 1
 
-
-
-""""
-with open("Circulos.svg") as archivo:
-    for linea in archivo:
-        linea_x = linea.find("ellipse")
-        if linea_x > -1 :
-            linea_y="Pidrita"
-            print(linea_y)
-"""
+with open(Nombre_Archivo_Gcode,"w") as Archivo_Gcode:
+    for Linea in Lista_Puntos:
+        print (Lista_Puntos[Linea_Numero])
+        Archivo_Gcode.write(Lista_Puntos[Linea_Numero])
+        Linea_Numero = Linea_Numero + 1
+    
