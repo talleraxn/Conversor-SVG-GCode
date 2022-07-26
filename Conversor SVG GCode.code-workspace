@@ -1,8 +1,7 @@
 {
 	"folders": [
 		{
-			"name": "Marlin-bugfix-2.0.x",
-			"path": "..\\..\\..\\..\\Downloads\\Marlin-bugfix-2.0.x Anet ET4+\\Marlin-bugfix-2.0.x"
+			"path": ".."
 		}
 	],
 	"settings": {}
