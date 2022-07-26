@@ -28,7 +28,11 @@ Linea_Numero=0
 
 with open(Nombre_Archivo_Gcode,"w") as Archivo_Gcode:
     for Linea in Lista_Puntos:
+        #print (Lista_Puntos[Linea_Numero])
+        Posicion_X=Lista_Puntos[Linea_Numero]
+        Posicion_Y=Lista_Puntos[Linea_Numero + 1]
+        Lista_Puntos[Linea_Numero]="G0 F1000 X"+ Posicion_X[11:-2] +" Y"+ Posicion_Y[11:-2] 
         print (Lista_Puntos[Linea_Numero])
         Archivo_Gcode.write(Lista_Puntos[Linea_Numero])
-        Linea_Numero = Linea_Numero + 1
+        Linea_Numero = Linea_Numero + 2
     
