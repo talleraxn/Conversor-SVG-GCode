@@ -1,0 +1,13 @@
+Temperatura 
+185
+Posicion Pick x e y
+200
+200
+Velocidad dezplazamiento
+5000
+Tiempo Pick mSeg
+1500
+Tiempo Place mSeg
+1500
+Fuerza Succion
+255
