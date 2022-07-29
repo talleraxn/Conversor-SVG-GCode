@@ -9,57 +9,70 @@ from traceback import print_list
 Nombre_Archivo_SVG="Circulos.svg"
 Nombre_Archivo_Gcode=Nombre_Archivo_SVG[:-3]+"gcode"
 
-archivo_SVG = open(Nombre_Archivo_SVG, "r")
-Contenido_SVG=[]
-Contenido_SVG=archivo_SVG.readlines()
-archivo_SVG.close()
+gcode=[]
 
 archivo_inicio_gcode = open("Inicio.gcode", "r")
-inicio_gcode=[]
-inicio_gcode=archivo_inicio_gcode.readlines()
+gcode=archivo_inicio_gcode.readlines()
 archivo_inicio_gcode.close()
-
 
 archivo_fin_gcode = open("Fin.gcode", "r")
 fin_gcode=[]
 fin_gcode=archivo_fin_gcode.readlines()
 archivo_fin_gcode.close()
 
-Lista_Puntos=[]
+toma=[]
+archivo_toma_gcode = open("Pick.gcode", "r")
+toma=archivo_toma_gcode.readlines()
+archivo_toma_gcode.close()
+
+coloca=[]
+archivo_coloca_gcode = open("Place.gcode", "r")
+coloca=archivo_coloca_gcode.readlines()
+archivo_coloca_gcode.close()
+
+def tomar_pieza():
+    instruccion_numero=0
+    for instruccion_numero in range (0, len(toma)):
+        gcode.append(toma[instruccion_numero])
+        instruccion_numero = instruccion_numero + 1
+    gcode.append("\n")
+def colocar_pieza():
+    instruccion_numero=0
+    for instruccion_numero in range (0, len(coloca)):
+        gcode.append(coloca[instruccion_numero])
+        instruccion_numero = instruccion_numero + 1
+    gcode.append("\n\n")
+
+archivo_SVG = open(Nombre_Archivo_SVG, "r")
+Contenido_SVG=[]
+Contenido_SVG=archivo_SVG.readlines()
+archivo_SVG.close()
+
 Linea_Numero=0
-
-
 for Linea_Numero in range (0, len(Contenido_SVG)-1):
     
     if 'ellipse' in Contenido_SVG[Linea_Numero]:
 
-        Lista_Puntos.append(Contenido_SVG[Linea_Numero+3])
-        Lista_Puntos.append(Contenido_SVG[Linea_Numero+4])
+        Posicion_X=Contenido_SVG[Linea_Numero+3]
+        Posicion_Y=Contenido_SVG[Linea_Numero+4]
+        gcode.append("; ----------------------------------------------------------------- \n")
+        tomar_pieza()
+        gcode.append("\n"+"G0 F1000 X"+ Posicion_X[11:-2] +" Y"+ Posicion_Y[11:-2] +"\n\n")
+        colocar_pieza()
 
         Linea_Numero = Linea_Numero+4
     Linea_Numero +=1
 
+instruccion_numero=0
+for instruccion_numero in range (0, len(fin_gcode)):
+        gcode.append(fin_gcode[instruccion_numero])
+        instruccion_numero = instruccion_numero + 1
 
-print (len(Lista_Puntos))
 
 with open(Nombre_Archivo_Gcode,"w") as Archivo_Gcode:
     
     Linea_Numero=0
-    for Linea in range (0, len(inicio_gcode)-1):
-        Archivo_Gcode.write(inicio_gcode[Linea_Numero])
+    for Linea_Numero in range (0, len(gcode)-1):
+        Archivo_Gcode.write(gcode[Linea_Numero])
         Linea_Numero = Linea_Numero + 1
-    
-    Linea_Numero=0
-    for Linea_Numero in range (0, len(Lista_Puntos)-1):
-        Posicion_X=Lista_Puntos[Linea_Numero]
-        Posicion_Y=Lista_Puntos[Linea_Numero + 1]
-        Lista_Puntos[Linea_Numero]="G0 F1000 X"+ Posicion_X[11:-2] +" Y"+ Posicion_Y[11:-2] +"\n"
-        print (Lista_Puntos[Linea_Numero])
-        Archivo_Gcode.write(Lista_Puntos[Linea_Numero])
-        Linea_Numero = Linea_Numero + 2
 
-    Archivo_Gcode.write("\n")
-    Linea_Numero=0
-    for Linea_Numero in range (0, len(fin_gcode)-1):
-        Archivo_Gcode.write(fin_gcode[Linea_Numero])
-        Linea_Numero = Linea_Numero + 1

@@ -1,3 +1,4 @@
+; Inicializacion
 G28
 G0 F5000 Z10
 M106 S255   ; Enciende Succion
@@ -25,4 +26,4 @@ G4 P1500
 G0 F5000 Z10
 
 G0 X0 Y0
-
+; fin inicializacion
